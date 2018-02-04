@@ -15,8 +15,11 @@ Before using:
 from aqt import mw
 from aqt.utils import showInfo
 from os import system
+from subprocess import call
 from aqt.qt import *
 from anki.hooks import addHook
+
+rememberedvolume = 100
 
 def resetMusicTimer():
     "Boosts volume back up and starts the music timer."
@@ -40,8 +43,15 @@ def resetMusicTimer():
     #showInfo(mw.state)
 
 def changeMusicVolume(change):
+    global rememberedvolume
     "Changes volume according to string; can be either absolute ('40') or change ('2%-')."
-    system("amixer set Master " + change) #CHANGEME somehow, if amixer doesn't work 
+    #system("amixer set Master " + change) #CHANGEME somehow, if amixer doesn't work 
+    system("C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe setsysvolume " + str(int(655.35 * float(change))))
+    #call(["C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe", "setsysvolume " + str(int(655.35 * float(change)))])
+    #system("C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe setsysvolume 5000")
+    #call(["C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe", "setsysvolume 5000"])
+    rememberedvolume = change
+    #showInfo(change)
 
 def boostMusicVolume():
     #showInfo("boosted") #To test changes, you can uncomment this line.
@@ -55,10 +65,12 @@ def killMusicVolume():
     #CHANGEME: Set to how low volume should go when it dies, eg due to undoing a card.
 
 def decrementMusicVolume():
+    global rememberedvolume
     "When reviewing, decrements volume, then sets a timer to call itself. When not reviewing, kills volume and stops timer."
     if mw.state == "review":
         #showInfo("music volume goes down") #To test changes, you can uncomment this line.
-        changeMusicVolume("2%-") #CHANGEME if you prefer smaller or bigger volume jumps.
+        #changeMusicVolume("2%-") #CHANGEME if you prefer smaller or bigger volume jumps.
+        changeMusicVolume(str(int(float(rememberedvolume)*0.98)))
         mw.musicTimer.start(mw.musicTimeToDecrement) #(start the timer again)
     else:
     	killMusicVolume()
