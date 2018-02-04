@@ -46,8 +46,8 @@ def changeMusicVolume(change):
     global rememberedvolume
     "Changes volume according to string; can be either absolute ('40') or change ('2%-')."
     #system("amixer set Master " + change) #CHANGEME somehow, if amixer doesn't work 
-    system("C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe setsysvolume " + str(int(655.35 * float(change))))
-    #call(["C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe", "setsysvolume " + str(int(655.35 * float(change)))])
+    #system("C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe setsysvolume " + str(int(655.35 * float(change))))
+    call("C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe setsysvolume " + str(int(655.35 * float(change))), shell=True)
     #system("C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe setsysvolume 5000")
     #call(["C:/Users/Khonkhortisan/AppData/Roaming/Anki2/addons/Music-Fiddler/nircmd.exe", "setsysvolume 5000"])
     rememberedvolume = change
