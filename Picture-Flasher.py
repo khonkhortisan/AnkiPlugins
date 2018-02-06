@@ -19,7 +19,7 @@ For more details, see the post at http://lesswrong.com/r/discussion/lw/frc/two_a
 from anki.hooks import addHook
 from aqt import mw
 from random import random, choice
-from aqt.qt import QSplashScreen, QPixmap, QTimer
+from aqt.qt import QSplashScreen, QPixmap, QTimer, Qt
 from os import listdir, path
 
 #------ begin configuration ------#
@@ -55,6 +55,7 @@ def showPics():
     if random() < picsProbability:
         # show a random picture from the picture directory
         mw.splash = QSplashScreen(QPixmap(path.join(pictureDirectory, choice(pics)))
+        mw.splash.setAttribute(Qt.WA_ShowWithoutActivating, True)
         try:
             mw.splash.move(flashPosition[0], flashPosition[1])
         except NameError:
