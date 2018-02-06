@@ -54,7 +54,7 @@ def showPics():
     # if we reach that probability this time...
     if random() < picsProbability:
         # show a random picture from the picture directory
-        mw.splash = QSplashScreen(QPixmap(path.join(pictureDirectory, choice(pics)))
+        mw.splash = QSplashScreen(QPixmap(path.join(pictureDirectory, choice(pics))))
         try:
             mw.splash.move(flashPosition[0], flashPosition[1])
         except NameError:
